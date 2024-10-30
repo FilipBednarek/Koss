@@ -29,16 +29,6 @@ if (isset($_GET['dodaj'])) {
 if (isset($_POST['czysc_koszyk'])) {
     $_SESSION['koszyk'] = [];
 }
-
-// Obliczanie łącznej ceny koszyka
-function obliczCeneKoszyka()
-{
-    $cenaCalkowita = 0;
-    foreach ($_SESSION['koszyk'] as $produkt) {
-        $cenaCalkowita += $produkt['cena'];
-    }
-    return $cenaCalkowita;
-}
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +51,15 @@ function obliczCeneKoszyka()
     <h2>Twój koszyk</h2>
     <?php if (!empty($_SESSION['koszyk'])): ?>
         <ul>
-            <?php foreach ($_SESSION['koszyk'] as $produkt): ?>
+            <?php 
+            $cenaCalkowita = 0;
+            foreach ($_SESSION['koszyk'] as $produkt): 
+                $cenaCalkowita += $produkt['cena'];
+            ?>
                 <li><?php echo $produkt['nazwa']; ?> - <?php echo $produkt['cena']; ?> PLN</li>
             <?php endforeach; ?>
         </ul>
-        <p><strong>Łączna cena:</strong> <?php echo obliczCeneKoszyka(); ?> PLN</p>
+        <p><strong>Łączna cena:</strong> <?php echo $cenaCalkowita; ?> PLN</p>
 
         <!-- Formularz do czyszczenia koszyka -->
         <form method="post">
