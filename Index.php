@@ -25,6 +25,11 @@ if (isset($_GET['dodaj'])) {
     }
 }
 
+// Czyszczenie koszyka
+if (isset($_POST['czysc_koszyk'])) {
+    $_SESSION['koszyk'] = [];
+}
+
 // Obliczanie łącznej ceny koszyka
 function obliczCeneKoszyka()
 {
@@ -61,6 +66,11 @@ function obliczCeneKoszyka()
             <?php endforeach; ?>
         </ul>
         <p><strong>Łączna cena:</strong> <?php echo obliczCeneKoszyka(); ?> PLN</p>
+
+        <!-- Formularz do czyszczenia koszyka -->
+        <form method="post">
+            <button type="submit" name="czysc_koszyk">Usuń koszyk</button>
+        </form>
     <?php else: ?>
         <p>Koszyk jest pusty.</p>
     <?php endif; ?>
